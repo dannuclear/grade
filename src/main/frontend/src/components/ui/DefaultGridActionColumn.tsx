@@ -15,7 +15,7 @@ export const DefaultGridActionColumn = ({ onEdit, onDelete, ...props }: DefaultG
       type: 'actions',
       getActions: ({ id }: GridRowParams) => [
         onEdit && <GridActionsCellItem icon={<DefaultIcon iconName='fa-pencil' />} label='Изменить' onClick={() => onEdit(id)} color='primary' size='medium' />,
-        onDelete && <GridActionsCellItem icon={<DefaultIcon iconName='fa-trash' />} label='Удалить' onClick={() => onDelete(id)} color='error' size='medium' />,
+        onDelete && <GridActionsCellItem icon={<DefaultIcon iconName='fa-trash' />} label='Удалить' onClick={() => onDelete(id)} color='primary' size='medium' />,
       ].filter(el => !!el)
     }
   )

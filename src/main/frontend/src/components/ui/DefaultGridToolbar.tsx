@@ -14,7 +14,7 @@ export const DefaultGridToolbar = ({ onAdd, labelAdd = 'Создать' }: NonNu
         <GridToolbarContainer>
             {onAdd && <Button onClick={onAdd}>{labelAdd}</Button>}
             <Box sx={{ flex: 1 }}></Box>
-            <GridToolbarQuickFilter debounceMs={500} sx={{ width: '20%' }} placeholder='Поиск...' />
+            <GridToolbarQuickFilter debounceMs={500}  />
         </GridToolbarContainer>
     )
 }
