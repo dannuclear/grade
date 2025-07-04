@@ -2,26 +2,28 @@ import { AppBar, Box, Button, IconButton, ListItemIcon, ListItemText, Menu, Menu
 import React, { useState } from 'react'
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
+import { ROUTES } from "../../shared/routes"
 import { DefaultIcon } from "../ui/DefaultIcon"
 
 const items = [
     {
-        label: 'Журнал заявлений',
+        label: 'Журнал учащихся',
         icon: 'fa-bells',
-        navigate: '/claims',
+        navigate: ROUTES.PERSONS,
         roles: [],
     },
-    // {
-    //     label: 'Справочники',
-    //     icon: 'fa-cubes',
-    //     roles: [],
-    //     items: [
-    //         {
-    //             label: 'Справочник заявлений',
-    //             icon: 'fa-shuffle'
-    //         }
-    //     ]
-    // },
+    {
+        label: 'Справочники',
+        icon: 'fa-cubes',
+        roles: [],
+        items: [
+            {
+                label: 'Классы',
+                icon: 'fa-shuffle',
+                navigate: ROUTES.CLASSES
+            }
+        ]
+    },
     {
         label: 'Администрирование',
         icon: 'fa-cubes',
@@ -74,7 +76,7 @@ export const NavBar = () => {
                         {items.map((item, idx) => ((item.roles.length == 0) || user.authorities.includes(item.roles[0])) && <NavButton key={idx} onClick={(e: React.MouseEvent<HTMLElement>) => onNavClick(item, e)} {...item} />)}
                     </Box>
 
-                    <Box sx={{ textAlign: "end"}}>
+                    <Box sx={{ textAlign: "end" }}>
                         <Typography>{user.name}</Typography>
                         <Typography variant="caption">{user.organization}</Typography>
                     </Box>

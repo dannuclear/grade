@@ -25,14 +25,14 @@ public class SecurityConfig {
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
-        configurationSource.registerCorsConfiguration("/*", configuration);
+        configurationSource.registerCorsConfiguration("/**", configuration);
         return configurationSource;
     }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(customizer -> customizer
-                .requestMatchers("/login", "/error").permitAll()
+                .requestMatchers("/login", "/error", "/swagger-ui/**", "v3/api-docs*").permitAll()
                 .anyRequest().authenticated())
                 .formLogin(customizer -> customizer
                         .defaultSuccessUrl("/main"))
