@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd">
+
+    <changeSet id="2025-03-05-auth-structure" author="Denis Vaganov">
+        <createTable tableName="auth_user">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="CHAR(60)">
+                <constraints nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="surname" type="VARCHAR(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="patronymic" type="VARCHAR(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="is_active" type="BOOLEAN" defaultValue="true">
+                <constraints nullable="false" />
+            </column>
+            <column name="roles" type="VARCHAR(255)">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
+        <insert tableName="auth_user">
+            <column name="username" value="admin" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="admin" />
+            <column name="surname" value="admin" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user1" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user1" />
+            <column name="surname" value="user1" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user2" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user2" />
+            <column name="surname" value="user2" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user3" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user3" />
+            <column name="surname" value="user3" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user4" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user4" />
+            <column name="surname" value="user4" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user5" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user5" />
+            <column name="surname" value="user5" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user6" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user6" />
+            <column name="surname" value="user6" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user7" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user7" />
+            <column name="surname" value="user7" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user8" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user8" />
+            <column name="surname" value="user8" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user9" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user9" />
+            <column name="surname" value="user9" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user10" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user10" />
+            <column name="surname" value="user10" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user11" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user11" />
+            <column name="surname" value="user11" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user12" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user12" />
+            <column name="surname" value="user12" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user13" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user13" />
+            <column name="surname" value="user13" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user14" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user14" />
+            <column name="surname" value="user14" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user15" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user15" />
+            <column name="surname" value="user15" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user16" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user16" />
+            <column name="surname" value="user16" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user17" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user17" />
+            <column name="surname" value="user17" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user18" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user18" />
+            <column name="surname" value="user18" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user19" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user19" />
+            <column name="surname" value="user19" />
+        </insert>
+
+        <insert tableName="auth_user">
+            <column name="username" value="user20" />
+            <column name="password"
+                value="$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K" />
+            <column name="name" value="user20" />
+            <column name="surname" value="user20" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

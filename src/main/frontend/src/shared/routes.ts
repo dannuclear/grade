@@ -1,6 +1,8 @@
 export const ROUTES = {
-    HOME: "/",
+    ROOT: "/",
     PERSONS: "/persons",
     USERS: "/users",
-    CLASSES: "/classes"
+    CLASSES: "/classes",
+    HOME: "/home",
+    LOGIN: "/login"
 } as const

@@ -4,6 +4,22 @@
  */
 
 export interface paths {
+    "/api/v1/users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byId"];
+        put: operations["update"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users": {
         parameters: {
             query?: never;
@@ -12,6 +28,38 @@ export interface paths {
             cookie?: never;
         };
         get: operations["all"];
+        put?: never;
+        post: operations["add"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/persons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["all_1"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/persons/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byId_1"];
         put?: never;
         post?: never;
         delete?: never;
@@ -24,15 +72,12 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        Pageable: {
+        UserDto: {
             /** Format: int32 */
-            page?: number;
-            /** Format: int32 */
-            size?: number;
-            sort?: string[];
-        };
-        GrantedAuthority: {
-            authority?: string;
+            id?: number;
+            username?: string;
+            name?: string;
+            surname?: string;
         };
         PageMetadata: {
             /** Format: int64 */
@@ -44,25 +89,20 @@ export interface components {
             /** Format: int64 */
             totalPages?: number;
         };
-        PagedModelUser: {
-            content?: components["schemas"]["User"][];
+        PagedModelUserDto: {
+            content?: components["schemas"]["UserDto"][];
             page?: components["schemas"]["PageMetadata"];
         };
-        User: {
+        PagedModelPersonDto: {
+            content?: components["schemas"]["PersonDto"][];
+            page?: components["schemas"]["PageMetadata"];
+        };
+        PersonDto: {
             /** Format: int32 */
             id?: number;
-            username?: string;
-            password?: string;
-            name?: string;
+            firstname?: string;
             surname?: string;
             patronymic?: string;
-            isActive?: boolean;
-            roles?: string;
-            authorities?: components["schemas"]["GrantedAuthority"][];
-            enabled?: boolean;
-            accountNonLocked?: boolean;
-            accountNonExpired?: boolean;
-            credentialsNonExpired?: boolean;
         };
     };
     responses: never;
@@ -73,13 +113,153 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    byId: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Успешно */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["UserDto"];
+                };
+            };
+            /** @description ресурс не найден */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    /** @example {
+                     *       "message": "Ресурс не найден"
+                     *     } */
+                    "application/json": unknown;
+                };
+            };
+        };
+    };
+    update: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
     all: {
         parameters: {
             query?: {
-                pageable?: components["schemas"]["Pageable"];
+                q?: string;
+                /** @description Индекс страницы (0..N) */
+                page?: number;
+                /** @description Размер страницы */
+                size?: number;
+                /** @description Критерий сортировки (id,asc).  */
+                sort?: string[];
             };
             header?: never;
             path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Успешно */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PagedModelUserDto"];
+                };
+            };
+        };
+    };
+    add: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UserDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
+    all_1: {
+        parameters: {
+            query?: {
+                q?: string;
+                /** @description Индекс страницы (0..N) */
+                page?: number;
+                /** @description Размер страницы */
+                size?: number;
+                /** @description Критерий сортировки (id,asc).  */
+                sort?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Успешно */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PagedModelPersonDto"];
+                };
+            };
+        };
+    };
+    byId_1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
             cookie?: never;
         };
         requestBody?: never;
@@ -90,7 +270,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PagedModelUser"];
+                    "*/*": components["schemas"]["PersonDto"];
                 };
             };
         };

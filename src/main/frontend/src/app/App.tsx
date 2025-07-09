@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 import { Outlet } from 'react-router'
-import { Header } from '../components/layout/Header'
+import { Header } from '../features/layout/ui/Header'
 
 export function App() {
   // const isLoading = useSelector((state: any) => state.user.isLoading)
