@@ -12,12 +12,12 @@ export interface DefaultDialogProps extends DialogProps {
 const DefaultDialog = ({ title, dialogContent, onCancel, onOk, onSave, ...props }: DefaultDialogProps) => {
     return (
         <Dialog {...props}>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>{dialogContent}</DialogContent>
-            <DialogActions>
-                {onOk && <Button onClick={onOk}>Ok</Button>}
-                {onSave && <Button onClick={onSave}>Сохранить</Button>}
-                {onCancel && <Button onClick={onCancel}>Отмена</Button>}
+            <DialogTitle sx={{ paddingY: 1, backgroundColor: "lightsteelblue" }}>{title}</DialogTitle>
+            <DialogContent dividers>{dialogContent}</DialogContent>
+            <DialogActions sx={{ paddingY: 1, backgroundColor: "lightsteelblue" }}>
+                {onOk && <Button color="error" onClick={onOk}>Ok</Button>}
+                {onSave && <Button color="error" onClick={onSave}>Сохранить</Button>}
+                {onCancel && <Button color="success" onClick={onCancel}>Отмена</Button>}
             </DialogActions>
         </Dialog>
     )

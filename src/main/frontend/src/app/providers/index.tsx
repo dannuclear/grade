@@ -4,6 +4,8 @@ import { Provider, ProviderProps } from 'react-redux'
 import { RouterProvider, RouterProviderProps } from 'react-router'
 import { Toasts } from '../message'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 type Props = {
     router: RouterProviderProps['router'],
@@ -17,9 +19,11 @@ export function Providers({ router, theme, store, queryClient }: Readonly<Props>
         <ThemeProvider theme={theme}>
             <Provider store={store}>
                 <QueryClientProvider client={queryClient}>
-                    <RouterProvider router={router} />
-                    <Toasts />
-                    <ReactQueryDevtools />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <RouterProvider router={router} />
+                        <Toasts />
+                        <ReactQueryDevtools />
+                    </LocalizationProvider>
                 </QueryClientProvider>
             </Provider>
         </ThemeProvider >

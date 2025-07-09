@@ -1,5 +1,6 @@
 import { Grid } from "@mui/material"
 import { FormContainer, FormContainerProps, TextFieldElement } from "react-hook-form-mui"
+import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 
 export type PersonFormProps = {
     values: any,
@@ -10,7 +11,6 @@ export type PersonFormProps = {
 export const PersonForm = ({ values, onSuccess, onError }: PersonFormProps) => {
     return (
         <FormContainer
-            FormProps={{ style: { paddingTop: 5 } }}
             onSuccess={onSuccess}
             onError={onError}
             values={values}>
@@ -24,6 +24,10 @@ export const PersonForm = ({ values, onSuccess, onError }: PersonFormProps) => {
                 <Grid size={2}>
                     <TextFieldElement name="patronymic" label="Отчество" />
                 </Grid>
+                <Grid size={2}>
+                    <DatePicker name="birthday" label="Дата"/>
+                </Grid>
+
             </Grid>
         </FormContainer>
     )

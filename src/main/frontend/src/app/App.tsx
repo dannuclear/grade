@@ -21,7 +21,7 @@ export function App() {
   return (
     <>
       <Header />
-      <Box padding={1}>
+      <Box sx={{ paddingTop: 1 }}>
         <Outlet />
       </Box>
     </>
