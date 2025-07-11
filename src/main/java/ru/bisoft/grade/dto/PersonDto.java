@@ -1,5 +1,7 @@
 package ru.bisoft.grade.dto;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class PersonDto {
     private String firstname;
     private String surname;
     private String patronymic;
+    private LocalDate birthday;
 }

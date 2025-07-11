@@ -1,5 +1,7 @@
 package ru.bisoft.grade.domain;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +25,7 @@ public class Person {
     private String firstname;
     private String surname;
     private String patronymic;
+    private LocalDate birthday;
 
     private String phoneNumber;
     private String email;

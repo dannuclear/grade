@@ -1,6 +1,6 @@
 
 export const DefaultIcon = ({ iconName }: { iconName: string }) => {
     return (
-        <i className={'fa-light ' + iconName}></i>
+        <i className={'fa-duotone ' + iconName}></i>
     )
 }

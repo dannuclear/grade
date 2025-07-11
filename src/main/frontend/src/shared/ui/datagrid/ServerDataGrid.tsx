@@ -1,7 +1,7 @@
 import { GridFilterModel, GridPaginationModel, GridRowId } from '@mui/x-data-grid';
 import { rqClient } from '@shared/api/instance';
 import { keepPreviousData } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { BaseDataGrid, BaseDataGridProps } from './BaseDataGrid';
 import { DefaultGridToolbar } from './DefaultGridToolbar';
@@ -18,7 +18,7 @@ export interface ServerDataGridProps extends Omit<BaseDataGridProps, 'rows'> {
 export const ServerDataGrid = ({ path, extraParams, onAdd, reload, ...props }: ServerDataGridProps) => {
     const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({ page: 0, pageSize: 10 })
     const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
-    const { data, isPending, isError, error } = rqClient.useQuery("get", path,
+    const { data, isPending, isError, error, refetch } = rqClient.useQuery("get", path,
         {
             params:
             {
@@ -31,6 +31,10 @@ export const ServerDataGrid = ({ path, extraParams, onAdd, reload, ...props }: S
                 }
             }
         }, { placeholderData: keepPreviousData })
+
+    useEffect(() => {
+        refetch()
+    }, [reload])
 
     if (isError)
         toast.error("Ошибка при запросе: " + error)

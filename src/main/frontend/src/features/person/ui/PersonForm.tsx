@@ -1,33 +1,42 @@
-import { Grid } from "@mui/material"
-import { FormContainer, FormContainerProps, TextFieldElement } from "react-hook-form-mui"
-import { DatePicker } from "@mui/x-date-pickers/DatePicker"
+import { capitalize, Grid, InputBaseProps } from "@mui/material"
+import dayjs from "dayjs"
+import { FieldValues, FormContainer, FormContainerProps, SubmitHandler, TextFieldElement } from "react-hook-form-mui"
+import { DatePickerElement } from "react-hook-form-mui/date-pickers"
 
-export type PersonFormProps = {
-    values: any,
-    onSuccess: FormContainerProps["onSuccess"],
-    onError: FormContainerProps["onError"]
+export type PersonFormProps = FormContainerProps & {
+    formId?: string,
 }
 
-export const PersonForm = ({ values, onSuccess, onError }: PersonFormProps) => {
+export const PersonForm = ({ formId, onSuccess, ...props }: PersonFormProps) => {
+
+    const onInnerSucces: SubmitHandler<FieldValues> = (data) => {
+        if (dayjs.isDayjs(data.birthday))
+            data.birthday = data.birthday.format('YYYY-MM-DD')
+        if (onSuccess) onSuccess(data)
+    }
+
+    const innerCapitalize: InputBaseProps["onChange"] = (event) => {
+        event.target.value = capitalize(event.target.value)
+    }
+
     return (
         <FormContainer
-            onSuccess={onSuccess}
-            onError={onError}
-            values={values}>
+            {...props}
+            onSuccess={onInnerSucces}
+            FormProps={{ id: formId }}>
             <Grid container spacing={1}>
                 <Grid size={2}>
-                    <TextFieldElement name="surname" label="Фамилия" />
+                    <TextFieldElement name="surname" label="Фамилия" required slotProps={{ htmlInput: { onChange: innerCapitalize } }} />
                 </Grid>
                 <Grid size={2}>
-                    <TextFieldElement name="firstname" label="Имя" />
+                    <TextFieldElement name="firstname" label="Имя" required slotProps={{ htmlInput: { onChange: innerCapitalize } }} />
                 </Grid>
                 <Grid size={2}>
                     <TextFieldElement name="patronymic" label="Отчество" />
                 </Grid>
                 <Grid size={2}>
-                    <DatePicker name="birthday" label="Дата"/>
+                    <DatePickerElement name="birthday" label="Дата" />
                 </Grid>
-
             </Grid>
         </FormContainer>
     )

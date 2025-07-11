@@ -8,13 +8,13 @@ import { DefaultIcon } from "../../../shared/ui"
 const items = [
     {
         label: 'Журнал учащихся',
-        icon: 'fa-bells',
+        icon: 'fa-people-simple',
         navigate: ROUTES.PERSONS,
         roles: [],
     },
     {
         label: 'Пользователи',
-        icon: 'fa-bells',
+        icon: 'fa-users',
         navigate: ROUTES.USERS,
         roles: [],
     },
@@ -45,7 +45,7 @@ const items = [
     }
 ]
 
-const NavButton = ({ label, icon, onClick }: any) => <Button startIcon={<i className={'fa-light ' + icon} />} onClick={onClick} sx={{ color: 'inherit' }}>{label}</Button>
+const NavButton = ({ label, icon, onClick }: any) => <Button startIcon={<DefaultIcon iconName={icon} />} onClick={onClick} sx={{ color: 'inherit' }}>{label}</Button>
 
 export const NavBar = () => {
     const navigate = useNavigate()
@@ -75,7 +75,7 @@ export const NavBar = () => {
                         size='large'
                         edge='start'
                         color='inherit' sx={{ mr: 2 }} onClick={() => navigate(ROUTES.HOME)}>
-                        <DefaultIcon iconName='fa-layer-group' />
+                        <DefaultIcon iconName='fa-user-graduate' />
                     </IconButton>
 
                     <Box sx={{ flexGrow: 1 }}>

@@ -20,6 +20,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/persons/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byId_1"];
+        put: operations["update_1"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/users": {
         parameters: {
             query?: never;
@@ -45,23 +61,7 @@ export interface paths {
         };
         get: operations["all_1"];
         put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/api/v1/persons/{id}": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get: operations["byId_1"];
-        put?: never;
-        post?: never;
+        post: operations["add_1"];
         delete?: never;
         options?: never;
         head?: never;
@@ -78,6 +78,15 @@ export interface components {
             username?: string;
             name?: string;
             surname?: string;
+        };
+        PersonDto: {
+            /** Format: int32 */
+            id?: number;
+            firstname?: string;
+            surname?: string;
+            patronymic?: string;
+            /** Format: date */
+            birthday?: string;
         };
         PageMetadata: {
             /** Format: int64 */
@@ -96,13 +105,6 @@ export interface components {
         PagedModelPersonDto: {
             content?: components["schemas"]["PersonDto"][];
             page?: components["schemas"]["PageMetadata"];
-        };
-        PersonDto: {
-            /** Format: int32 */
-            id?: number;
-            firstname?: string;
-            surname?: string;
-            patronymic?: string;
         };
     };
     responses: never;
@@ -169,6 +171,54 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["UserDto"];
+                };
+            };
+        };
+    };
+    byId_1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PersonDto"];
+                };
+            };
+        };
+    };
+    update_1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PersonDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PersonDto"];
                 };
             };
         };
@@ -253,16 +303,18 @@ export interface operations {
             };
         };
     };
-    byId_1: {
+    add_1: {
         parameters: {
             query?: never;
             header?: never;
-            path: {
-                id: number;
-            };
+            path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PersonDto"];
+            };
+        };
         responses: {
             /** @description OK */
             200: {
