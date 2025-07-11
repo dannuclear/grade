@@ -1,29 +1,30 @@
 import { ClassTable } from "@features/classes"
+import { ClassDialog } from "@features/classes/ClassDialog"
 import { GridRowId } from "@mui/x-data-grid"
 import { useState } from "react"
 
 const ClassListPage = () => {
-    const [personId, setPersonId] = useState<number | "new" | null>(null)
+    const [classId, setClassId] = useState<number | "new" | null>(null)
     const [reload, setReload] = useState<boolean>(false)
 
     const onEdit = (id: GridRowId) => {
-        setPersonId(id as number)
+        setClassId(id as number)
     }
 
     const onAdd = () => {
-        setPersonId('new')
+        setClassId('new')
     }
 
     const onDelete = (id: GridRowId) => {
-        console.log(`delete person: ${id}`)
+        console.log(`delete class: ${id}`)
     }
 
     const onCancel = () => {
-        setPersonId(null)
+        setClassId(null)
     }
 
     const onSettled = () => {
-        setPersonId(null)
+        setClassId(null)
         setReload(e => !e)
     }
 
@@ -33,7 +34,7 @@ const ClassListPage = () => {
 
     return (<>
         <ClassTable onAdd={onAdd} onEdit={onEdit} reload={reload} onDelete={onDelete} />
-        {/* <PersonDialog personId={personId} open={!!personId} onCancel={onCancel} onSettled={onSettled} onError={onError} /> */}
+        <ClassDialog classId={classId} open={!!classId} onCancel={onCancel} onSettled={onSettled} onError={onError} />
     </>)
 }
 
