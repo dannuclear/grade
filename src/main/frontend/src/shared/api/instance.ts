@@ -12,7 +12,6 @@ const middleware: Middleware = {
     async onResponse({ response }) {
         if (response.status != 401)
             return undefined
-        console.log('redirect');
         window.location.href = '/login?redirect=' + encodeURIComponent(window.location.pathname);
         return undefined
     }

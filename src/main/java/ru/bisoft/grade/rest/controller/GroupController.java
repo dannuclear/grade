@@ -15,50 +15,42 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import ru.bisoft.grade.domain.User;
-import ru.bisoft.grade.dto.UserDto;
-import ru.bisoft.grade.mapper.UserMapper;
-import ru.bisoft.grade.repo.UserRepository;
-import ru.bisoft.grade.rest.exception.UserNotFoundException;
-import ru.bisoft.grade.swagger.annotations.DefaultFindById;
+import ru.bisoft.grade.domain.Group;
+import ru.bisoft.grade.repo.GroupRepo;
+import ru.bisoft.grade.rest.exception.GroupNotFoundException;
 import ru.bisoft.grade.swagger.annotations.PageableWithDefaultCodes;
 
-@Tag(name = "Ручка пользователей", description = "Обеспечивает работу с пользователями")
 @RestController
-@RequestMapping("api/v1/users")
 @RequiredArgsConstructor
-public class UserController {
-    private final UserRepository userRepository;
-    private final UserMapper mapper;
+@RequestMapping("api/v1/groups")
+public class GroupController {
+    private final GroupRepo repo;
 
     @GetMapping
     @PageableWithDefaultCodes
-    public Page<UserDto> all(
+    public Page<Group> all(
             @Parameter(hidden = true) @SortDefault(value = "id") Pageable pageable,
             @RequestParam(required = false) String q) {
-        return userRepository.findAll(pageable).map(mapper::toDto);
+        return repo.findAll(pageable);
     }
 
-    @DefaultFindById
     @GetMapping("{id:\\d+}")
-    public UserDto byId(@PathVariable Integer id) {
-        return userRepository.findById(id).map(mapper::toDto).orElseThrow(UserNotFoundException::new);
+    public Group byId(@PathVariable Integer id) {
+        return repo.findById(id).orElseThrow(GroupNotFoundException::new);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto add(@RequestBody UserDto dto) {
-        User user = userRepository.save(mapper.toUser(dto));
-        return mapper.toDto(user);
+    public Group add(@RequestBody Group dto) {
+        Group group = repo.save(dto);
+        return group;
     }
 
     @PutMapping("{id:\\d+}")
-    public UserDto update(@PathVariable Integer id, @RequestBody UserDto dto) {
-        User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
-        mapper.updateUserFromDto(dto, user);
-        userRepository.save(user);
+    public Group update(@PathVariable Integer id, @RequestBody Group dto) {
+        Group group = repo.findById(id).orElseThrow(GroupNotFoundException::new);
+        repo.save(group);
         return dto;
     }
 }

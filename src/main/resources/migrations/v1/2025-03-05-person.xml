@@ -29,6 +29,15 @@
             </column>
         </createTable>
 
+        <createTable tableName="groups">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
         <sql>
             INSERT INTO person (firstname, surname, patronymic, phone_number, email, birthday) VALUES
             ('Алексей', 'Иванов', 'Сергеевич', '+7 910 123-45-67', 'alexey.ivanov@example.ru', '2010-05-14'),
@@ -93,6 +102,12 @@
             ('Людмила', 'Николаева', 'Юрьевна', '+7 970 012-34-56', 'lyudmila.nikolaeva@example.ru', '2010-05-05'),
             ('Андрей', 'Макаров', 'Денисович', '+7 971 123-45-67', 'andrey.makarov@example.ru', '2012-08-22'),
             ('Елена', 'Григорьева', 'Анатольевна', '+7 972 234-56-78', 'elena.grigorieva@example.ru', '2011-01-11')
+        </sql>
+
+        <sql>
+            INSERT INTO groups (name) VALUES
+            ('1А'), ('1Б'), ('1В'), ('2А'), ('2Б'), ('2В'), ('3А'), ('3Б'), ('3В'), ('4А'),
+            ('4Б'), ('4В'), ('5А'), ('5Б'), ('5В'), ('6А'), ('6Б'), ('6В'), ('7А'), ('7Б');
         </sql>
 
     </changeSet>

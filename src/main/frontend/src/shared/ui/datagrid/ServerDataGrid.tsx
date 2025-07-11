@@ -7,7 +7,7 @@ import { BaseDataGrid, BaseDataGridProps } from './BaseDataGrid';
 import { DefaultGridToolbar } from './DefaultGridToolbar';
 
 export interface ServerDataGridProps extends Omit<BaseDataGridProps, 'rows'> {
-    path: "/api/v1/users" | "/api/v1/persons",
+    path: "/api/v1/users" | "/api/v1/persons" | "/api/v1/groups",
     extraParams?: Object,
     reload?: boolean,
     onAdd?: () => void,

@@ -1,9 +1,10 @@
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import { AppBar, Box, Button, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from "@mui/material"
+import { ROUTES } from "@shared/routes"
+import { DefaultIcon } from "@shared/ui"
 import React, { useState } from 'react'
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router"
-import { ROUTES } from "../../../shared/routes"
-import { DefaultIcon } from "../../../shared/ui"
 
 const items = [
     {
@@ -13,39 +14,38 @@ const items = [
         roles: [],
     },
     {
-        label: 'Пользователи',
-        icon: 'fa-users',
-        navigate: ROUTES.USERS,
-        roles: [],
-    },
-    {
         label: 'Справочники',
-        icon: 'fa-cubes',
+        icon: 'fa-layer-group',
         roles: [],
         items: [
             {
-                label: 'Классы',
-                icon: 'fa-shuffle',
+                label: 'Классы/Группы',
+                icon: 'fa-people-group',
                 navigate: ROUTES.CLASSES
+            },
+            {
+                label: 'Предметы',
+                icon: 'fa-flask',
+                navigate: ROUTES.SUBJECTS
             }
         ]
     },
     {
         label: 'Администрирование',
-        icon: 'fa-cubes',
-        roles: ['ADMIN'],
+        icon: 'fa-gears',
+        roles: [],
         items: [
             {
                 label: 'Пользователи',
-                icon: 'fa-shuffle',
-                navigate: '/users',
+                icon: 'fa-users',
+                navigate: ROUTES.USERS,
                 roles: [],
             }
         ]
     }
 ]
 
-const NavButton = ({ label, icon, onClick }: any) => <Button startIcon={<DefaultIcon iconName={icon} />} onClick={onClick} sx={{ color: 'inherit' }}>{label}</Button>
+const NavButton = ({ label, icon, onClick, items }: any) => <Button startIcon={<DefaultIcon iconName={icon} />} onClick={onClick} sx={{ color: 'inherit' }} endIcon={items && <KeyboardArrowDownIcon />}>{label}</Button>
 
 export const NavBar = () => {
     const navigate = useNavigate()
