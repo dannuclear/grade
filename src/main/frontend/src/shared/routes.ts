@@ -5,5 +5,6 @@ export const ROUTES = {
     CLASSES: "/classes",
     HOME: "/home",
     LOGIN: "/login",
-    SUBJECTS: "/subjects"
+    SUBJECTS: "/subjects",
+    TEACHERS: "/teachers"
 } as const

@@ -20,7 +20,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/persons/{id}": {
+    "/api/v1/teachers/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -36,7 +36,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/groups/{id}": {
+    "/api/v1/subjects/{id}": {
         parameters: {
             query?: never;
             header?: never;
@@ -45,6 +45,38 @@ export interface paths {
         };
         get: operations["byId_2"];
         put: operations["update_2"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/persons/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byId_3"];
+        put: operations["update_3"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/groups/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["byId_4"];
+        put: operations["update_4"];
         post?: never;
         delete?: never;
         options?: never;
@@ -68,7 +100,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/persons": {
+    "/api/v1/teachers": {
         parameters: {
             query?: never;
             header?: never;
@@ -84,7 +116,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/api/v1/groups": {
+    "/api/v1/subjects": {
         parameters: {
             query?: never;
             header?: never;
@@ -94,6 +126,38 @@ export interface paths {
         get: operations["all_2"];
         put?: never;
         post: operations["add_2"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/persons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["all_3"];
+        put?: never;
+        post: operations["add_3"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/groups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["all_4"];
+        put?: never;
+        post: operations["add_4"];
         delete?: never;
         options?: never;
         head?: never;
@@ -110,6 +174,20 @@ export interface components {
             username?: string;
             name?: string;
             surname?: string;
+        };
+        TeacherDto: {
+            /** Format: int32 */
+            id?: number;
+            firstname?: string;
+            surname?: string;
+            patronymic?: string;
+            /** Format: date */
+            birthday?: string;
+        };
+        Subject: {
+            /** Format: int32 */
+            id?: number;
+            name?: string;
         };
         PersonDto: {
             /** Format: int32 */
@@ -137,6 +215,14 @@ export interface components {
         };
         PagedModelUserDto: {
             content?: components["schemas"]["UserDto"][];
+            page?: components["schemas"]["PageMetadata"];
+        };
+        PagedModelTeacherDto: {
+            content?: components["schemas"]["TeacherDto"][];
+            page?: components["schemas"]["PageMetadata"];
+        };
+        PagedModelSubject: {
+            content?: components["schemas"]["Subject"][];
             page?: components["schemas"]["PageMetadata"];
         };
         PagedModelPersonDto: {
@@ -233,12 +319,108 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PersonDto"];
+                    "*/*": components["schemas"]["TeacherDto"];
                 };
             };
         };
     };
     update_1: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TeacherDto"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["TeacherDto"];
+                };
+            };
+        };
+    };
+    byId_2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["Subject"];
+                };
+            };
+        };
+    };
+    update_2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Subject"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["Subject"];
+                };
+            };
+        };
+    };
+    byId_3: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PersonDto"];
+                };
+            };
+        };
+    };
+    update_3: {
         parameters: {
             query?: never;
             header?: never;
@@ -264,7 +446,7 @@ export interface operations {
             };
         };
     };
-    byId_2: {
+    byId_4: {
         parameters: {
             query?: never;
             header?: never;
@@ -286,7 +468,7 @@ export interface operations {
             };
         };
     };
-    update_2: {
+    update_4: {
         parameters: {
             query?: never;
             header?: never;
@@ -387,7 +569,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PagedModelPersonDto"];
+                    "*/*": components["schemas"]["PagedModelTeacherDto"];
                 };
             };
         };
@@ -401,7 +583,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["PersonDto"];
+                "application/json": components["schemas"]["TeacherDto"];
             };
         };
         responses: {
@@ -411,7 +593,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PersonDto"];
+                    "*/*": components["schemas"]["TeacherDto"];
                 };
             };
         };
@@ -439,12 +621,116 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PagedModelGroup"];
+                    "*/*": components["schemas"]["PagedModelSubject"];
                 };
             };
         };
     };
     add_2: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["Subject"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["Subject"];
+                };
+            };
+        };
+    };
+    all_3: {
+        parameters: {
+            query?: {
+                q?: string;
+                /** @description Индекс страницы (0..N) */
+                page?: number;
+                /** @description Размер страницы */
+                size?: number;
+                /** @description Критерий сортировки (id,asc).  */
+                sort?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Успешно */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PagedModelPersonDto"];
+                };
+            };
+        };
+    };
+    add_3: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["PersonDto"];
+            };
+        };
+        responses: {
+            /** @description Created */
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PersonDto"];
+                };
+            };
+        };
+    };
+    all_4: {
+        parameters: {
+            query?: {
+                q?: string;
+                /** @description Индекс страницы (0..N) */
+                page?: number;
+                /** @description Размер страницы */
+                size?: number;
+                /** @description Критерий сортировки (id,asc).  */
+                sort?: string[];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Успешно */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["PagedModelGroup"];
+                };
+            };
+        };
+    };
+    add_4: {
         parameters: {
             query?: never;
             header?: never;

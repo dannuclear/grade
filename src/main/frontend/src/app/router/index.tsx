@@ -30,6 +30,10 @@ const router = createBrowserRouter([
         path: ROUTES.HOME,
         lazy: () => import("@pages/home")
       },
+      {
+        path: ROUTES.SUBJECTS,
+        lazy: () => import("@pages/subjects")
+      },
 
     ]
   }

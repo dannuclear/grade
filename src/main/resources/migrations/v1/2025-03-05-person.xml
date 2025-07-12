@@ -29,7 +29,40 @@
             </column>
         </createTable>
 
+        <createTable tableName="teacher">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="firstname" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="surname" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="patronymic" type="VARCHAR(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="phone_number" type="VARCHAR(50)">
+                <constraints nullable="true" />
+            </column>
+            <column name="email" type="VARCHAR(40)">
+                <constraints nullable="true" />
+            </column>
+            <column name="birthday" type="DATE">
+                <constraints nullable="true" />
+            </column>
+        </createTable>
+
         <createTable tableName="groups">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="subject">
             <column name="id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false" />
             </column>
@@ -105,9 +138,31 @@
         </sql>
 
         <sql>
+            INSERT INTO teacher (firstname, surname, patronymic, phone_number, email, birthday) VALUES
+            ('Алексей', 'Иванов', 'Сергеевич', '+7 910 123-45-67', 'alexey.ivanov@example.ru', '2010-05-14'),
+            ('Мария', 'Петрова', 'Александровна', '+7 912 234-56-78', 'maria.petrova@example.ru', '2012-11-22'),
+            ('Дмитрий', 'Смирнов', 'Владимирович', '+7 913 345-67-89', 'dmitry.smirnov@example.ru', '2007-07-03'),
+            ('Елена', 'Кузнецова', 'Игоревна', '+7 914 456-78-90', 'elena.kuznetsova@example.ru', '2013-02-18')
+        </sql>
+
+        <sql>
             INSERT INTO groups (name) VALUES
             ('1А'), ('1Б'), ('1В'), ('2А'), ('2Б'), ('2В'), ('3А'), ('3Б'), ('3В'), ('4А'),
             ('4Б'), ('4В'), ('5А'), ('5Б'), ('5В'), ('6А'), ('6Б'), ('6В'), ('7А'), ('7Б');
+        </sql>
+
+        <sql>
+            INSERT INTO subject (name) VALUES
+            ('Математика'),
+            ('Русский язык'),
+            ('Литература'),
+            ('Физика'),
+            ('Химия'),
+            ('Биология'),
+            ('История'),
+            ('География'),
+            ('Обществознание'),
+            ('Информатика');
         </sql>
 
     </changeSet>
