@@ -28,7 +28,7 @@ export const SubjectDialog = ({ subjectId, onSettled, onError, ...props }: Subje
         <DefaultDialog
             {...props}
             formId='subject-form'
-            maxWidth="lg"
+            maxWidth="xs"
             fullWidth
             title='Сведения о предмете'
             isPending={isUpdating || isCreating || !subjectId}
