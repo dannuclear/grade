@@ -34,7 +34,14 @@ const router = createBrowserRouter([
         path: ROUTES.SUBJECTS,
         lazy: () => import("@pages/subjects")
       },
-
+      {
+        path: ROUTES.TEACHERS,
+        lazy: () => import("@pages/teachers")
+      },
+      {
+        path: ROUTES.GRADES,
+        lazy: () => import("@pages/grades")
+      }
     ]
   }
 ], { basename: import.meta.env.BASE_URL })

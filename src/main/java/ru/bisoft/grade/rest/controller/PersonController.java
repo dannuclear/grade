@@ -13,14 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import ru.bisoft.grade.domain.Person;
 import ru.bisoft.grade.dto.PersonDto;
+import ru.bisoft.grade.dto.PersonFlat;
 import ru.bisoft.grade.mapper.PersonMapper;
 import ru.bisoft.grade.repo.PersonRepo;
+import ru.bisoft.grade.rest.exception.PersonNotFoundException;
 import ru.bisoft.grade.swagger.annotations.PageableWithDefaultCodes;
 
 @RestController
@@ -32,16 +33,15 @@ public class PersonController {
 
     @GetMapping
     @PageableWithDefaultCodes
-    public Page<PersonDto> all(
+    public Page<PersonFlat> all(
             @Parameter(hidden = true) @SortDefault(value = "id") Pageable pageable,
             @RequestParam(required = false) String q) {
-        return repo.findAll(pageable).map(mapper::toDto);
+        return repo.findAll(pageable).map(mapper::toFlat);
     }
 
     @GetMapping("{id:\\d+}")
     public PersonDto byId(@PathVariable Integer id) {
-        return repo.findById(id).map(mapper::toDto)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Человек не найден"));
+        return repo.findById(id).map(mapper::toDto).orElseThrow(PersonNotFoundException::new);
     }
 
     @PostMapping
@@ -53,8 +53,7 @@ public class PersonController {
 
     @PutMapping("{id:\\d+}")
     public PersonDto update(@PathVariable Integer id, @RequestBody PersonDto dto) {
-        Person person = repo.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Человек не найден"));
+        Person person = repo.findById(id).orElseThrow(PersonNotFoundException::new);
         mapper.updatePersonFromDto(dto, person);
         repo.save(person);
         return dto;

@@ -23,4 +23,8 @@ public class Group {
     private Integer id;
 
     private String name;
+
+    public Group(Integer id) {
+        this.id = id;
+    }
 }

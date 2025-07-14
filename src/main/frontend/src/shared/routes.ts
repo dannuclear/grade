@@ -6,5 +6,9 @@ export const ROUTES = {
     HOME: "/home",
     LOGIN: "/login",
     SUBJECTS: "/subjects",
-    TEACHERS: "/teachers"
+    TEACHERS: "/teachers",
+    GRADES: "/grades",
+
+    
+    SWAGGER: "/swagger-ui/index.html"
 } as const

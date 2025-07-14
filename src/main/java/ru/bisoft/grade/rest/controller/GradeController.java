@@ -1,7 +1,10 @@
 package ru.bisoft.grade.rest.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import ru.bisoft.grade.domain.Grade;
+import ru.bisoft.grade.dto.GradeCross;
 import ru.bisoft.grade.repo.GradeRepo;
+import ru.bisoft.grade.repo.specs.GradeSpec;
 import ru.bisoft.grade.rest.exception.GradeNotFoundException;
 import ru.bisoft.grade.swagger.annotations.PageableWithDefaultCodes;
 
@@ -33,6 +38,45 @@ public class GradeController {
             @Parameter(hidden = true) @SortDefault(value = "id") Pageable pageable,
             @RequestParam(required = false) String q) {
         return repo.findAll(pageable);
+    }
+
+    @GetMapping(path = "/student/{studentId}", params = "cross")
+    @PageableWithDefaultCodes
+    public GradeCross byStudent(@PathVariable Integer studentId) {
+        List<Grade> grades = repo.findAll(GradeSpec.byStudentId(studentId));
+        return GradeCross.build(grades);
+    }
+
+    @GetMapping("/student/{studentId}")
+    @PageableWithDefaultCodes
+    public Page<Grade> byStudent(@PathVariable Integer studentId, Pageable pageable) {
+        return repo.findAll(GradeSpec.byStudentId(studentId), pageable);
+    }
+
+    @GetMapping("/student/{studentId}/subject/{subjectId}")
+    @PageableWithDefaultCodes
+    public Page<Grade> byStudentAndSubject(
+            @PathVariable Integer studentId,
+            @PathVariable Integer subjectId,
+            Pageable pageable) {
+        return repo.findAll(Specification.allOf(GradeSpec.byStudentId(studentId), GradeSpec.bySubjectId(subjectId)),
+                pageable);
+    }
+
+    @GetMapping("/teacher/{teacherId}")
+    @PageableWithDefaultCodes
+    public Page<Grade> byTeacher(@PathVariable Integer teacherId, Pageable pageable) {
+        return repo.findAll(GradeSpec.byTeacherId(teacherId), pageable);
+    }
+
+    @GetMapping("/teacher/{teacherId}/subject/{subjectId}")
+    @PageableWithDefaultCodes
+    public Page<Grade> byTeacherAndSubject(
+            @PathVariable Integer teacherId,
+            @PathVariable Integer subjectId,
+            Pageable pageable) {
+        return repo.findAll(Specification.allOf(GradeSpec.byTeacherId(teacherId), GradeSpec.bySubjectId(subjectId)),
+                pageable);
     }
 
     @GetMapping("{id:\\d+}")

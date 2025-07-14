@@ -6,6 +6,8 @@ const columns = [
     { field: "firstname", headerName: "Имя", width: 150 },
     { field: "patronymic", headerName: "Отчество", width: 150 },
     { field: "birthday", headerName: "Дата рождения", width: 150 },
+    { field: "groupName", headerName: "Группа/Класс", width: 150 },
+
     { field: " ", headerName: "", flex: 1},
 ]
 

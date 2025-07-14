@@ -1,3 +1,4 @@
+import { MClassSelectElement } from "@features/classes"
 import { capitalize, Grid, InputBaseProps } from "@mui/material"
 import dayjs from "dayjs"
 import { FieldValues, FormContainer, FormContainerProps, SubmitHandler, TextFieldElement } from "react-hook-form-mui"
@@ -36,6 +37,9 @@ export const PersonForm = ({ formId, onSuccess, ...props }: PersonFormProps) => 
                 </Grid>
                 <Grid size={2}>
                     <DatePickerElement name="birthday" label="Дата" />
+                </Grid>
+                <Grid size={2}>
+                    <MClassSelectElement name="group" label="Группа/Класс" />
                 </Grid>
             </Grid>
         </FormContainer>

@@ -1,5 +1,4 @@
-import { ClassTable } from "@features/classes"
-import { ClassDialog } from "@features/classes/ClassDialog"
+import { ClassDialog, ClassTable } from "@features/classes"
 import { GridRowId } from "@mui/x-data-grid"
 import { useState } from "react"
 

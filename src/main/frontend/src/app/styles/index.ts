@@ -1,7 +1,7 @@
+import '@assets/css/all.min.css';
 import { ruRU } from '@mui/material/locale';
 import { createTheme } from '@mui/material/styles';
 import type { } from '@mui/x-data-grid/themeAugmentation';
-import '@assets/css/all.min.css';
 
 export const theme = createTheme({
     palette: {
@@ -36,6 +36,13 @@ export const theme = createTheme({
                     loadingOverlay: {
                         variant: 'linear-progress',
                         noRowsVariant: 'linear-progress'
+                    }
+                }
+            },
+            styleOverrides: {
+                columnHeader: {
+                    '&.rotated-header': {
+                        transform: "rotate(90deg)",
                     }
                 }
             }

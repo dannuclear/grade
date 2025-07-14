@@ -4,13 +4,19 @@ import { ROUTES } from "@shared/routes"
 import { DefaultIcon } from "@shared/ui"
 import React, { useState } from 'react'
 import { useSelector } from "react-redux"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 const items = [
     {
         label: 'Журнал учащихся',
         icon: 'fa-people-simple',
         navigate: ROUTES.PERSONS,
+        roles: [],
+    },
+    {
+        label: 'Журнал оценок',
+        icon: 'fa-people-simple',
+        navigate: ROUTES.GRADES,
         roles: [],
     },
     {
@@ -27,6 +33,11 @@ const items = [
                 label: 'Предметы',
                 icon: 'fa-flask',
                 navigate: ROUTES.SUBJECTS
+            },
+            {
+                label: 'Преподаватели',
+                icon: 'fa-person-chalkboard',
+                navigate: ROUTES.TEACHERS
             }
         ]
     },
@@ -40,7 +51,13 @@ const items = [
                 icon: 'fa-users',
                 navigate: ROUTES.USERS,
                 roles: [],
-            }
+            },
+            {
+                label: 'API (Swagger)',
+                icon: 'fa-users',
+                redirect: ROUTES.SWAGGER,
+                roles: [],
+            },
         ]
     }
 ]
@@ -93,12 +110,23 @@ export const NavBar = () => {
                 open={Boolean(anchorEl)}
                 onClose={onClose}>
 
-                {menuItems.map((item: any, idx: number) => <MenuItem key={idx} onClick={(e: React.MouseEvent<HTMLElement>) => onNavClick(item, e)}>
-                    <ListItemIcon>
-                        <DefaultIcon iconName={item.icon} />
-                    </ListItemIcon>
-                    <ListItemText>{item.label}</ListItemText>
-                </MenuItem>)}
+                {menuItems.map((item: any, idx: number) => {
+                    if (item.navigate) {
+                        return (<MenuItem key={idx} onClick={(e: React.MouseEvent<HTMLElement>) => onNavClick(item, e)}>
+                            <ListItemIcon>
+                                <DefaultIcon iconStyle="fa-regular" iconName={item.icon} />
+                            </ListItemIcon>
+                            <ListItemText>{item.label}</ListItemText>
+                        </MenuItem>)
+                    } else if (item.redirect) {
+                        return (<MenuItem key={idx}>
+                            <ListItemIcon>
+                                <DefaultIcon iconStyle="fa-regular" iconName={item.icon} />
+                            </ListItemIcon>
+                            <Link to={item.redirect}>{item.label}</Link>
+                        </MenuItem>)
+                    }
+                })}
             </Menu>
         </>
     )
