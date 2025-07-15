@@ -49,8 +49,8 @@ public class GroupController {
 
     @PutMapping("{id:\\d+}")
     public Group update(@PathVariable Integer id, @RequestBody Group dto) {
-        Group group = repo.findById(id).orElseThrow(GroupNotFoundException::new);
-        repo.save(group);
-        return dto;
+        repo.findById(id).orElseThrow(GroupNotFoundException::new);
+        Group group = repo.save(dto);
+        return group;
     }
 }

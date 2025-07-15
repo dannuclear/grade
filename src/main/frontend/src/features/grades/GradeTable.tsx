@@ -65,7 +65,7 @@ function transformData(data: ApiComponents["schemas"]["Grade"][] = []) {
     const result: Record<number, PivotDataType> = {};
     const dates = new Set<string>();
 
-    data.forEach(item => {
+    data?.forEach(item => {
         const student = item.student;
         const key = student?.id as number;
         const fullName = `${student?.surname} ${student?.firstname} ${student?.patronymic}`.trim();

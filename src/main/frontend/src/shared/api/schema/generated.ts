@@ -196,6 +196,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/stats/grades": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["grades"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/grades/teacher/{teacherId}": {
         parameters: {
             query?: never;
@@ -362,6 +378,11 @@ export interface components {
         PagedModelSubject: {
             content?: components["schemas"]["Subject"][];
             page?: components["schemas"]["PageMetadata"];
+        };
+        StatsGradeDto: {
+            /** Format: int32 */
+            value?: number;
+            label?: string;
         };
         PagedModelPersonFlat: {
             content?: components["schemas"]["PersonFlat"][];
@@ -1006,6 +1027,26 @@ export interface operations {
                 };
                 content: {
                     "*/*": components["schemas"]["Grade"];
+                };
+            };
+        };
+    };
+    grades: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["StatsGradeDto"][];
                 };
             };
         };
