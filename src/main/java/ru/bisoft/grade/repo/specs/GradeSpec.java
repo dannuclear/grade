@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.data.jpa.domain.Specification;
 
 import ru.bisoft.grade.domain.Grade;
+import ru.bisoft.grade.domain.Group;
 import ru.bisoft.grade.domain.Person;
 import ru.bisoft.grade.domain.Subject;
 import ru.bisoft.grade.domain.Teacher;
@@ -22,6 +23,10 @@ public class GradeSpec {
         return (root, query, builder) -> builder.equal(root.get("subject"), subject);
     }
 
+    public static Specification<Grade> byGroup(Group group) {
+        return (root, query, builder) -> builder.equal(root.get("student").get("group"), group);
+    }
+
     public static Specification<Grade> byTeacherId(Integer id) {
         return (root, query, builder) -> builder.equal(root.get("teacher").get("id"), id);
     }
@@ -32,6 +37,10 @@ public class GradeSpec {
 
     public static Specification<Grade> bySubjectId(Integer id) {
         return (root, query, builder) -> builder.equal(root.get("subject").get("id"), id);
+    }
+
+    public static Specification<Grade> byGroupId(Integer id) {
+        return (root, query, builder) -> builder.equal(root.get("student").get("group").get("id"), id);
     }
 
     public static Specification<Grade> byAnyTeacher(Collection<Teacher> teachers) {

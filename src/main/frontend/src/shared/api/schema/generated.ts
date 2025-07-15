@@ -381,16 +381,16 @@ export interface components {
             content?: components["schemas"]["Group"][];
             page?: components["schemas"]["PageMetadata"];
         };
-        PagedModelGrade: {
-            content?: components["schemas"]["Grade"][];
-            page?: components["schemas"]["PageMetadata"];
-        };
         Pageable: {
             /** Format: int32 */
             page?: number;
             /** Format: int32 */
             size?: number;
             sort?: string[];
+        };
+        PagedModelGrade: {
+            content?: components["schemas"]["Grade"][];
+            page?: components["schemas"]["PageMetadata"];
         };
     };
     responses: never;
@@ -964,13 +964,10 @@ export interface operations {
     all_5: {
         parameters: {
             query?: {
-                q?: string;
-                /** @description Индекс страницы (0..N) */
-                page?: number;
-                /** @description Размер страницы */
-                size?: number;
-                /** @description Критерий сортировки (id,asc).  */
-                sort?: string[];
+                studentId?: number;
+                groupId?: number;
+                subjectId?: number;
+                teacherId?: number;
             };
             header?: never;
             path?: never;
@@ -978,13 +975,13 @@ export interface operations {
         };
         requestBody?: never;
         responses: {
-            /** @description Успешно */
+            /** @description OK */
             200: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": components["schemas"]["PagedModelGrade"];
+                    "*/*": components["schemas"]["Grade"][];
                 };
             };
         };
@@ -1076,8 +1073,7 @@ export interface operations {
     };
     byStudent: {
         parameters: {
-            query: {
-                pageable: components["schemas"]["Pageable"];
+            query?: {
                 /** @description Индекс страницы (0..N) */
                 page?: number;
                 /** @description Размер страницы */

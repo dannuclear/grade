@@ -1,10 +1,12 @@
 import { ClassDialog, ClassTable } from "@features/classes"
 import { GridRowId } from "@mui/x-data-grid"
+import { rqClient } from "@shared/api/instance"
+import { useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 
 const ClassListPage = () => {
     const [classId, setClassId] = useState<number | "new" | null>(null)
-    const [reload, setReload] = useState<boolean>(false)
+    const queryClient = useQueryClient()
 
     const onEdit = (id: GridRowId) => {
         setClassId(id as number)
@@ -24,7 +26,7 @@ const ClassListPage = () => {
 
     const onSettled = () => {
         setClassId(null)
-        setReload(e => !e)
+        queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/groups"))
     }
 
     const onError = () => {
@@ -32,7 +34,7 @@ const ClassListPage = () => {
     }
 
     return (<>
-        <ClassTable onAdd={onAdd} onEdit={onEdit} reload={reload} onDelete={onDelete} />
+        <ClassTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
         <ClassDialog classId={classId} open={!!classId} onCancel={onCancel} onSettled={onSettled} onError={onError} />
     </>)
 }

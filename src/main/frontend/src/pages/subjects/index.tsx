@@ -1,10 +1,12 @@
 import { SubjectDialog, SubjectTable } from "@features/subjects/ui"
 import { GridRowId } from "@mui/x-data-grid"
+import { rqClient } from "@shared/api/instance"
+import { useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 
 const SubjectListPage = () => {
     const [subjectId, setSubjectId] = useState<number | "new" | null>(null)
-    const [reload, setReload] = useState<boolean>(false)
+    const queryClient = useQueryClient()
 
     const onEdit = (id: GridRowId) => {
         setSubjectId(id as number)
@@ -24,7 +26,7 @@ const SubjectListPage = () => {
 
     const onSettled = () => {
         setSubjectId(null)
-        setReload(e => !e)
+        queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/subjects"))
     }
 
     const onError = () => {
@@ -32,7 +34,7 @@ const SubjectListPage = () => {
     }
 
     return (<>
-        <SubjectTable onAdd={onAdd} onEdit={onEdit} reload={reload} onDelete={onDelete} />
+        <SubjectTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
         <SubjectDialog subjectId={subjectId} open={!!subjectId} onCancel={onCancel} onSettled={onSettled} onError={onError} />
     </>)
 }

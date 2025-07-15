@@ -1,5 +1,6 @@
 package ru.bisoft.grade.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import ru.bisoft.grade.domain.Grade;
-import ru.bisoft.grade.dto.GradeCross;
 import ru.bisoft.grade.repo.GradeRepo;
 import ru.bisoft.grade.repo.specs.GradeSpec;
 import ru.bisoft.grade.rest.exception.GradeNotFoundException;
@@ -33,23 +33,29 @@ public class GradeController {
     private final GradeRepo repo;
 
     @GetMapping
-    @PageableWithDefaultCodes
-    public Page<Grade> all(
+    public List<Grade> all(
             @Parameter(hidden = true) @SortDefault(value = "id") Pageable pageable,
-            @RequestParam(required = false) String q) {
-        return repo.findAll(pageable);
-    }
-
-    @GetMapping(path = "/student/{studentId}", params = "cross")
-    @PageableWithDefaultCodes
-    public GradeCross byStudent(@PathVariable Integer studentId) {
-        List<Grade> grades = repo.findAll(GradeSpec.byStudentId(studentId));
-        return GradeCross.build(grades);
+            @RequestParam(required = false) Integer studentId,
+            @RequestParam(required = false) Integer groupId,
+            @RequestParam(required = false) Integer subjectId,
+            @RequestParam(required = false) Integer teacherId) {
+        List<Specification<Grade>> specs = new ArrayList<>();
+        if (studentId != null)
+            specs.add(GradeSpec.byStudentId(studentId));
+        if (groupId != null)
+            specs.add(GradeSpec.byGroupId(groupId));
+        if (subjectId != null)
+            specs.add(GradeSpec.bySubjectId(subjectId));
+        if (teacherId != null)
+            specs.add(GradeSpec.byTeacherId(teacherId));
+        return repo.findAll(Specification.allOf(specs));
     }
 
     @GetMapping("/student/{studentId}")
     @PageableWithDefaultCodes
-    public Page<Grade> byStudent(@PathVariable Integer studentId, Pageable pageable) {
+    public Page<Grade> byStudent(
+            @PathVariable Integer studentId,
+            @Parameter(hidden = true) @SortDefault(value = "id") Pageable pageable) {
         return repo.findAll(GradeSpec.byStudentId(studentId), pageable);
     }
 

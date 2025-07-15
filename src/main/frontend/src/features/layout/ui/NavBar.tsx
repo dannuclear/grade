@@ -15,7 +15,7 @@ const items = [
     },
     {
         label: 'Журнал оценок',
-        icon: 'fa-people-simple',
+        icon: 'fa-circle-5',
         navigate: ROUTES.GRADES,
         roles: [],
     },

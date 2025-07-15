@@ -1,10 +1,12 @@
 import { TeacherDialog, TeacherTable } from "@features/teacher/ui"
 import { GridRowId } from "@mui/x-data-grid"
+import { rqClient } from "@shared/api/instance"
+import { useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 
 const TeacherListPage = () => {
     const [teacherId, setTeacherId] = useState<number | "new" | null>(null)
-    const [reload, setReload] = useState<boolean>(false)
+    const queryClient = useQueryClient()
 
     const onEdit = (id: GridRowId) => {
         setTeacherId(id as number)
@@ -24,7 +26,7 @@ const TeacherListPage = () => {
 
     const onSettled = () => {
         setTeacherId(null)
-        setReload(e => !e)
+        queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/teachers"))
     }
 
     const onError = () => {
@@ -32,7 +34,7 @@ const TeacherListPage = () => {
     }
 
     return (<>
-        <TeacherTable onAdd={onAdd} onEdit={onEdit} reload={reload} onDelete={onDelete} />
+        <TeacherTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
         <TeacherDialog teacherId={teacherId} open={!!teacherId} onCancel={onCancel} onSettled={onSettled} onError={onError} />
     </>)
 }

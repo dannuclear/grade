@@ -1,10 +1,12 @@
 import { PersonDialog, PersonTable } from "@features/person/ui"
 import { GridRowId } from "@mui/x-data-grid"
+import { rqClient } from "@shared/api/instance"
+import { useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 
 const PersonListPage = () => {
     const [personId, setPersonId] = useState<number | "new" | null>(null)
-    const [reload, setReload] = useState<boolean>(false)
+    const queryClient = useQueryClient()
 
     const onEdit = (id: GridRowId) => {
         setPersonId(id as number)
@@ -24,7 +26,7 @@ const PersonListPage = () => {
 
     const onSettled = () => {
         setPersonId(null)
-        setReload(e => !e)
+        queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/persons"))
     }
 
     const onError = () => {
@@ -32,7 +34,7 @@ const PersonListPage = () => {
     }
 
     return (<>
-        <PersonTable onAdd={onAdd} onEdit={onEdit} reload={reload} onDelete={onDelete} />
+        <PersonTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
         <PersonDialog personId={personId} open={!!personId} onCancel={onCancel} onSettled={onSettled} onError={onError} />
     </>)
 }
