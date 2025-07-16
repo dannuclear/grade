@@ -1,3 +1,11 @@
+INSERT INTO auth_user (username, password, firstname, surname, is_active, tg_username) VALUES 
+    ('admin', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'admin', 'admin', true, 'davaganov'),
+    ('user1', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user1', 'user1', false, null),
+    ('user2', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user2', 'user2', true, null),
+    ('user3', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user3', 'user3', true, null),
+    ('user4', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user4', 'user4', true, null),
+    ('user5', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user5', 'user5', true, null);
+
 INSERT INTO
     groups (name)
 VALUES

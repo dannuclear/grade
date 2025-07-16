@@ -10,8 +10,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+        public static String PASSWORD_PLACEHOLDER = "******";
+
         private Integer id;
         private String username;
-        private String name;
+        private String firstname;
         private String surname;
+        private String password;
+        private Boolean isActive;
+        private String tgUsername;
+        private String tgPin;
+
+        public boolean hasPassword() {
+                return password != null && !password.isEmpty();
+        }
 }

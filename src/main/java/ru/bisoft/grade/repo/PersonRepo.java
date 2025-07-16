@@ -20,4 +20,6 @@ public interface PersonRepo extends JpaRepository<Person, Integer> {
     @Override
     @EntityGraph(attributePaths = "group")
     Optional<Person> findById(Integer id);
+
+    Person findBySurnameIgnoreCase(String surname);
 }

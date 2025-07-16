@@ -1,6 +1,7 @@
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { PieChart } from '@mui/x-charts/PieChart';
 import { rqClient } from "@shared/api/instance";
+import qr from 'assets/img/bot.png';
 
 export const Component = () => {
     const { data } = rqClient.useQuery("get", "/api/v1/stats/grades")
@@ -18,6 +19,17 @@ export const Component = () => {
             </Grid>
             <Grid size={4}>
                 <PieChart series={[{ data: preparedData ?? [], innerRadius: 30 }]}></PieChart>
+            </Grid>
+            <Grid size={4}></Grid>
+            <Grid size={4}>
+                <Box
+                    component="img"
+                    sx={{
+                        height: 200,
+                        width: 200,
+                    }}
+                    src={qr}
+                />
             </Grid>
         </Grid>
     )

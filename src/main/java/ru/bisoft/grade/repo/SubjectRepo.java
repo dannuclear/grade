@@ -7,5 +7,5 @@ import ru.bisoft.grade.domain.Subject;
 
 @Transactional(readOnly = true)
 public interface SubjectRepo extends JpaRepository<Subject, Integer> {
-
+    Subject findByNameIgnoreCase(String name);
 }

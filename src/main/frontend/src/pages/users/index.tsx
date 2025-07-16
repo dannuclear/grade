@@ -1,18 +1,38 @@
-import { ServerDataGrid } from "@shared/ui"
-
-const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "username", headerName: "Имя пользователя", width: 150 },
-    { field: "name", headerName: "name", width: 150 },
-]
+import { UserDialog, UserTable } from "@features/users"
+import { GridRowId } from "@mui/x-data-grid"
+import { rqClient } from "@shared/api/instance"
+import { useQueryClient } from "@tanstack/react-query"
+import { useState } from "react"
 
 const UserListPage = () => {
-    const onAdd = () => {
-        console.log('add user')
+    const [userId, setUserId] = useState<number | "new" | null>(null)
+    const queryClient = useQueryClient()
+
+    const onEdit = (id: GridRowId) => {
+        setUserId(id as number)
     }
 
+    const onAdd = () => {
+        setUserId('new')
+    }
+
+    const onDelete = (id: GridRowId) => {
+        console.log(`delete user: ${id}`)
+    }
+
+    const onCancel = () => {
+        setUserId(null)
+    }
+
+    const onSettled = () => {
+        setUserId(null)
+        queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/users"))
+    }
     return (
-        <ServerDataGrid path="/api/v1/users" columns={columns} onAdd={onAdd}/>
+        <>
+            <UserTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
+            <UserDialog userId={userId} open={!!userId} onCancel={onCancel} onSettled={onSettled} />
+        </>
     )
 }
 

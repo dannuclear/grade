@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,15 +34,30 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    private String name;
+    private String firstname;
     private String surname;
     private String patronymic;
 
     private Boolean isActive;
     private String roles;
+    private String tgUsername;
+    private String tgPin;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
+
+    @ManyToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.emptySet();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return this.isActive;
     }
 }

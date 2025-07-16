@@ -1,6 +1,7 @@
 package ru.bisoft.grade.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import ru.bisoft.grade.domain.User;
@@ -10,7 +11,9 @@ import ru.bisoft.grade.dto.UserDto;
 public interface UserMapper {
     User toUser(UserDto dto);
 
+    @Mapping(target = "password", ignore = true)
     UserDto toDto(User user);
 
+    @Mapping(target = "password", ignore = true)
     void updateUserFromDto(UserDto dto, @MappingTarget User user);
 }
