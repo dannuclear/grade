@@ -1,21 +1,21 @@
 import { rqClient } from '@shared/api/instance'
 import { DefaultDialog, DefaultDialogProps } from '@shared/ui'
-import { PersonForm, PersonFormProps } from './PersonForm'
+import { StudentForm, StudentFormProps } from './StudentForm'
 
-export type PersonDialog = Omit<DefaultDialogProps, 'title' | 'dialogContent'> & Omit<PersonFormProps, 'values' | 'onSuccess'> & { personId: number | "new" | null, onSettled: () => void }
+export type StudentDialog = Omit<DefaultDialogProps, 'title' | 'dialogContent'> & Omit<StudentFormProps, 'values' | 'onSuccess'> & { studentId: number | "new" | null, onSettled: () => void }
 
-export const PersonDialog = ({ personId, onSettled, onError, ...props }: PersonDialog) => {
+export const StudentDialog = ({ studentId, onSettled, onError, ...props }: StudentDialog) => {
     const { data } = rqClient.useQuery('get', "/api/v1/persons/{id}", {
         params: {
-            path: { id: personId as number }
+            path: { id: studentId as number }
         }
-    }, { enabled: Number.isInteger(personId) })
+    }, { enabled: Number.isInteger(studentId) })
 
     const { mutate: update, isPending: isUpdating } = rqClient.useMutation('put', '/api/v1/persons/{id}', { onSettled })
     const { mutate: create, isPending: isCreating } = rqClient.useMutation('post', '/api/v1/persons', { onSettled })
 
-    const onSuccess: PersonFormProps["onSuccess"] = (data) => {
-        if (personId == 'new')
+    const onSuccess: StudentFormProps["onSuccess"] = (data) => {
+        if (studentId == 'new')
             create({ body: data })
         else
             update({
@@ -27,12 +27,12 @@ export const PersonDialog = ({ personId, onSettled, onError, ...props }: PersonD
     return (
         <DefaultDialog
             {...props}
-            formId='person-form'
+            formId='student-form'
             maxWidth="lg"
             fullWidth
             title='Сведения об учащемся'
-            isPending={isUpdating || isCreating || !personId}
+            isPending={isUpdating || isCreating || !studentId}
             onSave={() => { }}
-            dialogContent={<PersonForm formId='person-form' onSuccess={onSuccess} onError={onError} values={data} />} />
+            dialogContent={<StudentForm formId='student-form' onSuccess={onSuccess} onError={onError} values={data} />} />
     )
 }

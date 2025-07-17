@@ -3,6 +3,7 @@ package ru.bisoft.grade.domain;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,10 +30,14 @@ public class Person {
     private String patronymic;
     private LocalDate birthday;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
 
     private String phoneNumber;
     private String email;
+
+    public Person(Integer id) {
+        this.id = id;
+    }
 }

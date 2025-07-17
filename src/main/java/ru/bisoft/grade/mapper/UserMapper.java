@@ -15,5 +15,7 @@ public interface UserMapper {
     UserDto toDto(User user);
 
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "student", ignore = true)
+    @Mapping(target = "teacher", ignore = true)
     void updateUserFromDto(UserDto dto, @MappingTarget User user);
 }

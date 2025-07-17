@@ -20,6 +20,8 @@ public class UserDto {
         private Boolean isActive;
         private String tgUsername;
         private String tgPin;
+        private PersonDto student;
+        private TeacherDto teacher;
 
         public boolean hasPassword() {
                 return password != null && !password.isEmpty();

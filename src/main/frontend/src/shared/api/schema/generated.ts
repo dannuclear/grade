@@ -280,27 +280,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        UserDto: {
-            /** Format: int32 */
-            id?: number;
-            username?: string;
-            name?: string;
-            surname?: string;
-        };
-        TeacherDto: {
-            /** Format: int32 */
-            id?: number;
-            firstname?: string;
-            surname?: string;
-            patronymic?: string;
-            /** Format: date */
-            birthday?: string;
-        };
-        Subject: {
-            /** Format: int32 */
-            id?: number;
-            name?: string;
-        };
         Group: {
             /** Format: int32 */
             id?: number;
@@ -315,6 +294,33 @@ export interface components {
             /** Format: date */
             birthday?: string;
             group?: components["schemas"]["Group"];
+        };
+        TeacherDto: {
+            /** Format: int32 */
+            id?: number;
+            firstname?: string;
+            surname?: string;
+            patronymic?: string;
+            /** Format: date */
+            birthday?: string;
+        };
+        UserDto: {
+            /** Format: int32 */
+            id?: number;
+            username?: string;
+            firstname?: string;
+            surname?: string;
+            password?: string;
+            isActive?: boolean;
+            tgUsername?: string;
+            tgPin?: string;
+            student?: components["schemas"]["PersonDto"];
+            teacher?: components["schemas"]["TeacherDto"];
+        };
+        Subject: {
+            /** Format: int32 */
+            id?: number;
+            name?: string;
         };
         Grade: {
             /** Format: int32 */
@@ -882,6 +888,7 @@ export interface operations {
         parameters: {
             query?: {
                 q?: string;
+                group?: number;
                 /** @description Индекс страницы (0..N) */
                 page?: number;
                 /** @description Размер страницы */

@@ -143,3 +143,5 @@ INSERT INTO grade (date_time, val, student_id, teacher_id, subject_id, created_b
     ('2024-05-30 09:30:00', 4, 6, 2, 5, 'admin', '2024-05-30 09:30:00', 'admin', '2024-05-30 09:30:00', 'Strong performance'),
     ('2024-06-13 10:15:00', 2, 10, 1, 1, 'admin', '2024-06-13 10:15:00', 'admin', '2024-06-13 10:15:00', 'Below standard'),
     ('2024-07-26 11:50:00', 5, 4, 3, 3, 'admin', '2024-07-26 11:50:00', 'admin', '2024-07-26 11:50:00', 'Outstanding achievement');
+
+UPDATE auth_user SET teacher_id = 1 WHERE id = 1;

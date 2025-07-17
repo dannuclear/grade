@@ -12,7 +12,7 @@ const router = createBrowserRouter([
       },
       {
         path: ROUTES.PERSONS,
-        lazy: () => import("@pages/persons")
+        lazy: () => import("@pages/students")
       },
       {
         path: ROUTES.LOGIN,

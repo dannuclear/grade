@@ -4,11 +4,11 @@ import dayjs from "dayjs"
 import { FieldValues, FormContainer, FormContainerProps, SubmitHandler, TextFieldElement } from "react-hook-form-mui"
 import { DatePickerElement } from "react-hook-form-mui/date-pickers"
 
-export type PersonFormProps = FormContainerProps & {
+export type StudentFormProps = FormContainerProps & {
     formId?: string,
 }
 
-export const PersonForm = ({ formId, onSuccess, ...props }: PersonFormProps) => {
+export const StudentForm = ({ formId, onSuccess, ...props }: StudentFormProps) => {
 
     const onInnerSucces: SubmitHandler<FieldValues> = (data) => {
         if (dayjs.isDayjs(data.birthday))

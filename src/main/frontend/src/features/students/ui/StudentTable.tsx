@@ -5,6 +5,8 @@ import { ServerDataGrid } from "@shared/ui"
 import { ServerDataGridProps } from "@shared/ui/datagrid/ServerDataGrid"
 import { Link } from "react-router"
 
+export type StudentTableProps = Omit<ServerDataGridProps, "path" | "columns">
+
 const columns: GridColDef[] = [
     { field: "surname", headerName: "Фамилия", width: 150 },
     { field: "firstname", headerName: "Имя", width: 150 },
@@ -20,7 +22,7 @@ const columns: GridColDef[] = [
     },
 ]
 
-export const PersonTable = ({ ...props }: Omit<ServerDataGridProps, "path" | "columns">) => {
+export const StudentTable = ({ ...props }: StudentTableProps) => {
     return (
         <ServerDataGrid {...props} path="/api/v1/persons" columns={columns} />
     )

@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import ru.bisoft.grade.domain.Person;
+import ru.bisoft.grade.domain.Teacher;
 import ru.bisoft.grade.domain.User;
+import ru.bisoft.grade.dto.PersonDto;
+import ru.bisoft.grade.dto.TeacherDto;
 import ru.bisoft.grade.dto.UserDto;
 import ru.bisoft.grade.mapper.UserMapper;
 import ru.bisoft.grade.repo.UserRepository;
@@ -62,6 +66,16 @@ public class UserController {
     public UserDto update(@PathVariable Integer id, @RequestBody UserDto dto) {
         User user = userRepository.findById(id).orElseThrow(UserNotFoundException::new);
         mapper.updateUserFromDto(dto, user);
+        PersonDto student = dto.getStudent();
+        TeacherDto teacher = dto.getTeacher();
+        if (student != null)
+            user.setStudent(new Person(student.getId()));
+        else
+            user.setStudent(null);
+        if (teacher != null)
+            user.setTeacher(new Teacher(teacher.getId()));
+        else
+            user.setTeacher(null);
         user = userRepository.save(user);
         if (dto.hasPassword() && user.getId() != null && !UserDto.PASSWORD_PLACEHOLDER.equals(dto.getPassword())) {
             String pwdHash = passwordEncoder.encode(dto.getPassword());

@@ -1,5 +1,6 @@
 import { GridFilterModel, GridPaginationModel, GridRowId } from '@mui/x-data-grid';
 import { rqClient } from '@shared/api/instance';
+import { ApiPaths } from '@shared/api/schema';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -11,10 +12,11 @@ export interface ServerDataGridProps extends Omit<BaseDataGridProps, 'rows'> {
     extraParams?: Object,
     onAdd?: () => void,
     onEdit?: (id: GridRowId) => void,
-    onDelete?: (id: GridRowId) => void
+    onDelete?: (id: GridRowId) => void,
+    filters?: ApiPaths["/api/v1/users" | "/api/v1/persons" | "/api/v1/groups" | "/api/v1/teachers" | "/api/v1/subjects"]["get"]["parameters"]["query"]
 }
 
-export const ServerDataGrid = ({ path, extraParams, onAdd, ...props }: ServerDataGridProps) => {
+export const ServerDataGrid = ({ path, extraParams, onAdd, filters, ...props }: ServerDataGridProps) => {
     const [paginationModel, setPaginationModel] = useState<GridPaginationModel>({ page: 0, pageSize: 10 })
     const [filterModel, setFilterModel] = useState<GridFilterModel>({ items: [] })
     const { data, isPending, isError, error } = rqClient.useQuery("get", path,
@@ -26,7 +28,8 @@ export const ServerDataGrid = ({ path, extraParams, onAdd, ...props }: ServerDat
                     page: paginationModel.page,
                     size: paginationModel.pageSize,
                     sort: ['id'],
-                    q: filterModel.quickFilterValues?.length ? filterModel.quickFilterValues[0] : undefined
+                    q: filterModel.quickFilterValues?.length ? filterModel.quickFilterValues[0] : undefined,
+                    ...filters
                 }
             }
         }, { placeholderData: keepPreviousData })

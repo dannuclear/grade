@@ -24,14 +24,14 @@ const UserListPage = () => {
         setUserId(null)
     }
 
-    const onSettled = () => {
+    const onSuccess = () => {
         setUserId(null)
         queryClient.invalidateQueries(rqClient.queryOptions("get", "/api/v1/users"))
     }
     return (
         <>
             <UserTable onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
-            <UserDialog userId={userId} open={!!userId} onCancel={onCancel} onSettled={onSettled} />
+            <UserDialog userId={userId} open={!!userId} onCancel={onCancel} onSuccess={onSuccess} />
         </>
     )
 }

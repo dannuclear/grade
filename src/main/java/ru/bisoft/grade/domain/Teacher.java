@@ -29,4 +29,8 @@ public class Teacher {
 
     private String phoneNumber;
     private String email;
+
+    public Teacher(Integer id) {
+        this.id = id;
+    }
 }

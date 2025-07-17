@@ -45,7 +45,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
-    private Person person;
+    private Person student;
 
     @ManyToOne
     @JoinColumn(name = "teacher_id")
@@ -59,5 +59,18 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return this.isActive;
+    }
+
+    public String getFullName() {
+        if (teacher != null) {
+            return String.format("%s %s %s", teacher.getSurname(), teacher.getFirstname(), teacher.getPatronymic())
+                    .replaceAll("null", "")
+                    .trim();
+        } else if (student != null) {
+            return String.format("%s %s %s", student.getSurname(), student.getFirstname(), student.getPatronymic())
+                    .replaceAll("null", "")
+                    .trim();
+        }
+        return String.format("%s %s %s", surname, firstname, patronymic).replaceAll("null", "").trim();
     }
 }

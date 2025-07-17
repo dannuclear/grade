@@ -1,4 +1,8 @@
+import { StudentAutocompleteElement } from "@features/students/ui"
+import { TeacherAutocompleteElement } from "@features/teacher/ui"
 import { Grid } from "@mui/material"
+import { ApiComponents } from "@shared/api/schema"
+import { useForm } from "react-hook-form"
 import { CheckboxElement, FormContainer, FormContainerProps, TextFieldElement } from "react-hook-form-mui"
 
 export type UserFormProps = FormContainerProps & {
@@ -6,12 +10,17 @@ export type UserFormProps = FormContainerProps & {
 }
 
 export const UserForm = ({ formId, onSuccess, ...props }: UserFormProps) => {
+    const { control, ...context } = useForm<ApiComponents["schemas"]["UserDto"]>({
+        defaultValues: {
+            isActive: true,
+            student: {}
+        }
+    })
+
     return (
         <FormContainer
             {...props}
-            defaultValues={{
-                isActive: true
-            }}
+            context={context}
             onSuccess={onSuccess}
             FormProps={{ id: formId }}>
             <Grid container spacing={1}>
@@ -46,6 +55,14 @@ export const UserForm = ({ formId, onSuccess, ...props }: UserFormProps) => {
 
                 <Grid size={10}>
                     <TextFieldElement name="roles" label="Роли" />
+                </Grid>
+
+                <Grid size={12}>
+                    <StudentAutocompleteElement name="student" label="Учащайся" />
+                </Grid>
+
+                <Grid size={12}>
+                    <TeacherAutocompleteElement name="teacher" label="Преподаватель" />
                 </Grid>
             </Grid>
         </FormContainer>

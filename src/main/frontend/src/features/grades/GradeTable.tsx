@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ClassAutocomplete } from "@features/classes";
-import { PersonAutocomplete } from "@features/person/ui";
+import { StudentAutocomplete } from "@features/students/ui";
 import { SubjectAutocomplete } from "@features/subjects/ui";
 import { TeacherAutocomplete } from "@features/teacher/ui";
 import { Grid } from "@mui/material";
@@ -128,7 +128,7 @@ export const GradeTable = ({ ...props }: Omit<DataGridProps, "columns">) => {
                 <ClassAutocomplete onChange={(_props, sel) => handleChange(setGroupId)(sel)} />
             </Grid>
             <Grid size={3}>
-                <PersonAutocomplete onChange={(_props, sel) => handleChange(setStudentId)(sel)} />
+                <StudentAutocomplete onChange={(_props, sel) => handleChange(setStudentId)(sel)} />
             </Grid>
             <Grid size={3}>
                 <TeacherAutocomplete onChange={(_props, sel) => handleChange(setTeacherId)(sel)} />

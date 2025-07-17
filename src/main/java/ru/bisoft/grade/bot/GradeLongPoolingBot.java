@@ -74,7 +74,7 @@ class GradeLongPoolingBot implements SpringLongPollingBot, LongPollingSingleThre
             ru.bisoft.grade.domain.User dbUser = optUser.get();
             switch (userState.getOrDefault(tgUser.getUserName(), ChatState.STARTED)) {
                 case STARTED:
-                    sendTextMessage(message.getChatId(), "Добро пожаловать: " + dbUser.getFirstname());
+                    sendTextMessage(message.getChatId(), "Добро пожаловать: " + dbUser.getFullName());
                     if (dbUser.getTgPin() == null) {
                         sendTextMessage(message.getChatId(), "Для доступа к функциям придумайте пин-код 4 цифры:");
                         userState.put(tgUser.getUserName(), ChatState.WAITING_FOR_PIN);
@@ -110,14 +110,21 @@ class GradeLongPoolingBot implements SpringLongPollingBot, LongPollingSingleThre
                     Person person = personRepository.findBySurnameIgnoreCase(estimateParts[0]);
                     if (person == null) {
                         sendTextMessage(message.getChatId(), "Нет такого учащегося");
+                        toWaitingCommand(tgUser.getUserName(), message.getChatId());
                         break;
                     }
                     Subject subject = subjectRepository.findByNameIgnoreCase(estimateParts[1]);
                     if (subject == null) {
                         sendTextMessage(message.getChatId(), "Нет такого предмета");
+                        toWaitingCommand(tgUser.getUserName(), message.getChatId());
                         break;
                     }
-                    Teacher teacher = teacherRepository.findById(1).get();
+                    Teacher teacher = dbUser.getTeacher();
+                    if (teacher == null) {
+                        sendTextMessage(message.getChatId(), "Вы не преподаватель");
+                        toWaitingCommand(tgUser.getUserName(), message.getChatId());
+                        break;
+                    }
                     Grade grade = new Grade();
                     grade.setCreatedAt(LocalDateTime.now());
                     grade.setDateTime(LocalDateTime.now());
