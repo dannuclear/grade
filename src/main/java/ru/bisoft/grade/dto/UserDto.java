@@ -16,6 +16,7 @@ public class UserDto {
         private String username;
         private String firstname;
         private String surname;
+        private String patronymic;
         private String password;
         private Boolean isActive;
         private String tgUsername;

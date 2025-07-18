@@ -1,5 +1,7 @@
 package ru.bisoft.grade.repo.specs;
 
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.Collection;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -65,5 +67,20 @@ public class GradeSpec {
 
     public static Specification<Grade> byAnySubjectIds(Collection<Integer> subjectIds) {
         return (root, query, builder) -> root.get("subject").get("id").in(subjectIds);
+    }
+
+    public static Specification<Grade> byPeriod(LocalDate start, LocalDate end) {
+        return (root, query, builder) -> {
+            if (start == null && end == null) {
+                return builder.conjunction();
+            }
+            if (start == null) {
+                return builder.lessThanOrEqualTo(root.get("dateTime"), end);
+            }
+            if (end == null) {
+                return builder.greaterThanOrEqualTo(root.get("dateTime"), start);
+            }
+            return builder.between(root.get("dateTime"), start, end);
+        };
     }
 }

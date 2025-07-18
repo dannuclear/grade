@@ -1,8 +1,12 @@
 package ru.bisoft.grade.telegram;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import ru.bisoft.grade.domain.Grade;
 import ru.bisoft.grade.domain.Person;
 import ru.bisoft.grade.domain.Teacher;
 import ru.bisoft.grade.domain.User;
@@ -15,6 +19,8 @@ public class UserSession {
     private final String userName;
     private ChatState state = ChatState.STARTED;
     private User dbUser;
+    private List<Grade> preparedGrades = new ArrayList<>();
+    private Boolean changePin = false;
 
     public static UserSession create(Long charId, String userName) {
         return new UserSession(charId, userName);

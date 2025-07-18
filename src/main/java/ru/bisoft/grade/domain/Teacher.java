@@ -33,4 +33,9 @@ public class Teacher {
     public Teacher(Integer id) {
         this.id = id;
     }
+
+    public String getFullName() {
+        return (((surname != null ? surname : "") + " " + (firstname != null ? firstname : "") + " "
+                + (patronymic != null ? patronymic : ""))).trim();
+    }
 }

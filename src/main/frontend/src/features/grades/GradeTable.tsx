@@ -14,6 +14,11 @@ import { useSearchParams } from "react-router";
 const StyledDataGrid = styled(DataGrid)({
     '& .MuiDataGrid-columnHeader': {
         padding: 0.1
+    },
+    '& .MuiDataGrid-cell': {
+        '&.rate-cell': {
+            padding: 0.1
+        }
     }
 });
 
@@ -42,10 +47,11 @@ const createColumn = (date: string): GridColDef => ({
     field: date,
     headerName: date,
     width: 30,
-    minWidth: 30,
+    minWidth: 40,
     renderHeader: (p) => <SvgText text={p.colDef.headerName} />,
     sortable: false,
     headerAlign: "center",
+    cellClassName: "rate-cell",
     resizable: false,
     align: "center"
 });
@@ -74,9 +80,9 @@ function transformData(data: ApiComponents["schemas"]["Grade"][] = []) {
         dates.add(date);
 
         if (!result[key]) {
-            result[key] = { id: key, fullName, [date]: item.val ?? "" };
+            result[key] = { id: key, fullName };
         }
-        result[key][date] = item.val ?? "";
+        result[key][date] = (result[key][date] ? (result[key][date] + " " + (item.val ?? "")) : (item.val ?? ""));
     });
 
     return {

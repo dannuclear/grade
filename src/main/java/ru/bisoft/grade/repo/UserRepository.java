@@ -40,7 +40,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @EntityGraph(attributePaths = { "student.group", "teacher" })
     @Query("SELECT u FROM User u WHERE " +
-           "LOWER(CONCAT(u.firstname, u.surname, COALESCE(u.patronymic, ''))) = " +
+           "LOWER(CONCAT(u.surname, u.firstname, COALESCE(u.patronymic, ''))) = " +
            "LOWER(REPLACE(?1, ' ', ''))")
     Optional<User> findByFullName(String fullName);
 }

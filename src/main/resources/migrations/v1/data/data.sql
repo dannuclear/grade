@@ -1,10 +1,10 @@
-INSERT INTO auth_user (username, password, firstname, surname, is_active, tg_username) VALUES 
-    ('admin', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'admin', 'admin', true, 'davaganov'),
-    ('user1', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user1', 'user1', false, null),
-    ('user2', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user2', 'user2', true, null),
-    ('user3', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user3', 'user3', true, null),
-    ('user4', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user4', 'user4', true, null),
-    ('user5', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user5', 'user5', true, null);
+INSERT INTO auth_user (username, password, surname, firstname, patronymic, is_active, tg_username) VALUES 
+    ('admin', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'Админов', 'Админ', 'Админович', true, null),
+    ('user1', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'Иванов', 'Иван', 'Иванович', true, null),
+    ('user2', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'Петров', 'Петр', 'Петрович', true, null),
+    ('user3', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user3', 'user3', 'user3', true, null),
+    ('user4', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user4', 'user4', 'user4', true, null),
+    ('user5', '$2a$10$pGwP95XGaCili4K0frEQlOx50DQ/LiHwwcuZ9yFRNjuMWEqdykY1K', 'user5', 'user5', 'user5', true, null);
 
 INSERT INTO
     groups (name)
@@ -96,8 +96,8 @@ INSERT INTO person (firstname, surname, patronymic, phone_number, email, birthda
 
 INSERT INTO teacher (firstname, surname, patronymic, phone_number, email, birthday) VALUES
     ('Алексей', 'Иванов', 'Сергеевич', '+7 910 123-45-67', 'alexey.ivanov@example.ru', '2010-05-14'),
-    ('Мария', 'Петрова', 'Александровна', '+7 912 234-56-78', 'maria.petrova@example.ru', '2012-11-22'),
-    ('Дмитрий', 'Смирнов', 'Владимирович', '+7 913 345-67-89', 'dmitry.smirnov@example.ru', '2007-07-03'),
+    ('Иван', 'Иванов', 'Иванович', '+7 912 234-56-78', 'maria.petrova@example.ru', '2012-11-22'),
+    ('Петр', 'Петров', 'Петрович', '+7 913 345-67-89', 'dmitry.smirnov@example.ru', '2007-07-03'),
     ('Елена', 'Кузнецова', 'Игоревна', '+7 914 456-78-90', 'elena.kuznetsova@example.ru', '2013-02-18');
 
 INSERT INTO subject (name) VALUES
@@ -145,3 +145,8 @@ INSERT INTO grade (date_time, val, student_id, teacher_id, subject_id, created_b
     ('2024-07-26 11:50:00', 5, 4, 3, 3, 'admin', '2024-07-26 11:50:00', 'admin', '2024-07-26 11:50:00', 'Outstanding achievement');
 
 UPDATE auth_user SET teacher_id = 1 WHERE id = 1;
+UPDATE auth_user SET teacher_id = 2 WHERE id = 2;
+UPDATE auth_user SET teacher_id = 3 WHERE id = 3;
+UPDATE auth_user SET teacher_id = 4 WHERE id = 4;
+
+--UPDATE auth_user SET tg_username = 'davaganov' WHERE id = 1;
